@@ -38,6 +38,12 @@ end
     <td>2</td>
     <td></td>
   </tr>
+  <tr>
+    <td>blocksize</td>
+    <td>The size (in bytes) for the swap file blocks</td>
+    <td>1024</td>
+    <td>1048576 (1MB)</td>
+  </tr>
 </table>
 
 Usage

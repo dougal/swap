@@ -21,10 +21,10 @@
 # Creates a swap file of the given size and the given path
 action :create do
   bash "create swapfile #{new_resource.path}" do
-    code "dd if=/dev/zero of=#{new_resource.path} bs=#{block_size} count=#{new_resource.size}"
+    code "dd if=/dev/zero of=#{new_resource.path} bs=#{new_resource.block_size} count=#{new_resource.size}"
     not_if {
       ::File.exists?(new_resource.path) &&
-      ::File.size?(new_resource.path).to_i/block_size == new_resource.size
+      ::File.size?(new_resource.path).to_i/new_resource.block_size == new_resource.size
     }
   end
 
@@ -65,10 +65,4 @@ action :remove do
     code          "swapoff #{new_resource.path}"
     notifices     :delete, "file[#{new_resource.name}]"
   end
-end
-
-private
-# The block size (1GB)
-def block_size
-  1048576
 end
